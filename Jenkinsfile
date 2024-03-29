@@ -11,6 +11,14 @@ pipeline {
       sh 'docker build -t maven:latest .'
      }
    }
+  stage ('Docker Push') {
+     steps {
+      sh 'docker login -u neelima640 -p Peacock@2127'
+      sh 'docker -t maven:latest neelima640/maven:latest'
+      sh 'docker push neelima640/maven:latest'
+     }
+   }
+    
   }
   
 }
