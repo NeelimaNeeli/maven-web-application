@@ -20,7 +20,7 @@ pipeline {
    }
  stage ('Deploy to the container') {
    steps {
-     sh 'docker run -d -p 8888:8888 tomcat:9.0'
+     sh 'docker run -d -p 8888:80 tomcat:9.0'
    }
  }
   }     
