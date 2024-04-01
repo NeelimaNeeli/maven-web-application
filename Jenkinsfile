@@ -21,7 +21,7 @@ pipeline {
   
  stage ('Deploy to the container') {
    steps {
-     sh 'docker run -d -p 9999:8080 neelima640/tomcat:9.0 --name=maven'
+     sh 'docker run -d -p 9999:8080 tomcat:9.0 --name=maven'
      
    }
  }
