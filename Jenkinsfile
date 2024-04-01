@@ -18,7 +18,11 @@ pipeline {
       sh 'docker push neelima640/maven:latest'
      }
    }
-    
-  }
-  
+ stage ('Deploy to the container') {
+   steps {
+     sh 'docker run -d -p 8888:8080 tomcat:9.0'
+   }
+ }
+  }     
 }
+
