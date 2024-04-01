@@ -18,6 +18,16 @@ pipeline {
       sh 'docker push neelima640/maven:latest'
      }
    }
+  stage ('Removing existing container') {
+        when {
+                // Skip this stage if the container 'maven' does not exist
+                expression { return sh(script: 'docker ps -a --format "{{.Names}}" | grep -q "maven"', returnStatus: true) == 0 }
+            }
+            steps {
+                sh 'docker stop maven || true' // Stop the container if it exists, ignore errors if it doesn't
+                sh 'docker rm maven || true'   // Remove the container if it exists, ignore errors if it doesn't
+            }
+        }
  stage ('Deploy to the container') {
    steps {
      sh 'docker run -d -p 9999:8080 tomcat:9.0 --name=maven'
