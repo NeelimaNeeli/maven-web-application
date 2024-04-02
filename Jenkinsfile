@@ -8,7 +8,7 @@ pipeline {
     }
    stage ('Image Building') {
      steps {
-      sh 'sudo chmod 777 /var/run/docker.sock'
+      
       sh 'docker build -t maven:latest .'
      }
    }
