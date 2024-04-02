@@ -9,30 +9,30 @@ pipeline {
    stage ('Image Building') {
      steps {
       
-      sh 'docker build -t tomcat:9.0 .'
+      sh 'docker build -t tomcat:latest .'
      }
    }
   stage ('Docker Push') {
      steps {
       sh 'docker login -u neelima640 -p Peacock@2127'
-      sh 'docker tag tomcat:9.0 neelima640/tomcat:9.0'
-      sh 'docker push neelima640/tomcat:9.0'
+      sh 'docker tag tomcat:latest neelima640/tomcat:latest'
+      sh 'docker push neelima640/tomcat:latest'
      }
    }
   stage ('Removing existing container') {
         when {
-                // Skip this stage if the container 'maven' does not exist
-                expression { return sh(script: 'docker ps -a --format "{{.Names}}" | grep -q "maven"', returnStatus: true) == 0 }
+                // Skip this stage if the container 'tmct' does not exist
+                expression { return sh(script: 'docker ps -a --format "{{.Names}}" | grep -q "tmct"', returnStatus: true) == 0 }
             }
             steps {
-                sh 'docker stop maven || true' // Stop the container if it exists, ignore errors if it doesn't
-                sh 'docker rm maven || true'   // Remove the container if it exists, ignore errors if it doesn't
+                sh 'docker stop tmct || true' // Stop the container if it exists, ignore errors if it doesn't
+                sh 'docker rm tmct || true'   // Remove the container if it exists, ignore errors if it doesn't
             }
         }
   
  stage ('Deploy to the container') {
    steps {
-     sh 'docker run -d -p 9999:8080 tomcat:9.0 --name=maven'
+     sh 'docker run -d -p 9999:8080 tomcat:9.0 --name=tmct'
      sh 'docker cp /home/neelima/maven-web-application/target/maven-web-application.war 
      
    }
