@@ -33,6 +33,8 @@ pipeline {
  stage ('Deploy to the container') {
    steps {
      sh 'docker run -d -p 9999:8080 --name tmct tomcat:latest'
+     sh 'chmod -R +r /home/neelima/maven-web-application'
+
      sh 'docker cp /home/neelima/maven-web-application/target/maven-web-application.war tmct:/usr/local/tomcat/webapps/'
      
    }
