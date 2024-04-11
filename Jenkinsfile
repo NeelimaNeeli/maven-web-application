@@ -35,7 +35,7 @@ pipeline {
      sh 'docker run -d -p 9999:8080 --name tmct tomcat:latest'
   
 
-     sh 'docker cp /home/neelima/maven-web-application/target/maven-web-application.war tmct:/usr/local/tomcat/webapps/'
+     
      
    }
  }
